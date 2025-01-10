@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoginPage {
-    private WebDriver driver;
+    public WebDriver driver;
     public LoginPage(WebDriver webDriver){
         this.driver= webDriver;
         PageFactory.initElements(driver, this);
@@ -37,7 +37,6 @@ public class LoginPage {
         String TextData = InputPassWord.getShadowRoot().findElement(By.tagName("div")).findElement(By.tagName("div")).getText();
         return TextData;
     }
-
     @FindBy(xpath ="//div[@class='col text-sm']")
     private WebElement TextAccount;
     public String TextAccount (){
@@ -49,7 +48,6 @@ public class LoginPage {
         List<String> LinkTexts = new ArrayList<>();
         for(WebElement LinkHover: LinkHovers){
             LinkTexts.add(LinkHover.getAttribute("href"));
-
         }
        return LinkTexts;
     }
@@ -61,11 +59,59 @@ public class LoginPage {
                 System.out.println((driver.getCurrentUrl()));
                 driver.navigate().back();
                 break;
-
             }
-
         }
     }
+    @FindBy(xpath ="//input[@id='username']")
+    private WebElement InputEmail ;
+    @FindBy(xpath ="//input[@id='password']")
+    private WebElement InputPassWordData ;
+    @FindBy(xpath ="//button[@id='btnlogin']")
+    private WebElement ButtonLogin ;
+    public void  InputEmailAndPassWord (String Email,String PassWord){
+        InputEmail.clear();
+        InputEmail.sendKeys(Email);
+        InputPassWordData.clear();
+        InputPassWordData.sendKeys(PassWord);
+        ButtonLogin.click();
+    }
+    public void ClearInputField(){
+        InputEmail.clear();
+        InputPassWordData.clear();
+    }
+
+
+    @FindBy(xpath ="//label[@id='usernameRequired']")
+    private WebElement EmailRequired ;
+    @FindBy(xpath ="//label[@id='passwordRequired']")
+    private WebElement PassWordRequired ;
+    @FindBy(xpath ="(//label[@class='text-danger'])[4]")
+    private WebElement IncorrectEmailAndPassWord ;
+    public  String EmailRequiredText(){
+        return EmailRequired.getText();
+    }
+    public  String PassWordRequiredText(){
+        return PassWordRequired.getText();
+    }
+    public  String IncorrectText(){
+        return IncorrectEmailAndPassWord.getText();
+    }
+    public boolean EmailRequired(){
+        return EmailRequired.isDisplayed();
+    }
+    public boolean PassWordRequired(){
+        return PassWordRequired.isDisplayed();
+    }
+    public boolean IncorrectEmailAndPassWord(){
+        return IncorrectEmailAndPassWord.isDisplayed();
+    }
+
+
+
+
+
+
+
 
 
 

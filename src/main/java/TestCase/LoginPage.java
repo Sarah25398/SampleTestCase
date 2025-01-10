@@ -4,17 +4,18 @@ import Utils.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class LoginPage extends BaseTest {
-    private static final String Title_Expect ="Sign In";
-    private static final String Title_Email ="Email";
-    private static final String Title_PassWord ="Password";
-    private static final String Title_Account ="Don't have an account yet?";
-    private static final String LinkSignUps ="https://supplier-dev2.vela.com.vn/account/register";
-    private static final String Link_Logo ="https://vela.com.vn/";
-    private static final String Link_ForgetPassWord ="https://supplier-dev2.vela.com.vn/account/forgot-password";
+    private static final String Title_Expect = "Sign In";
+    private static final String Title_Email = "Email";
+    private static final String Title_PassWord = "Password";
+    private static final String Title_Account = "Don't have an account yet?";
+    private static final String LinkSignUps = "https://supplier-dev2.vela.com.vn/account/register";
+    private static final String Link_Logo = "https://vela.com.vn/";
+    private static final String Link_ForgetPassWord = "https://supplier-dev2.vela.com.vn/account/forgot-password";
 
     @Test
     public void ValidHeader() {
@@ -22,15 +23,16 @@ public class LoginPage extends BaseTest {
         Assert.assertTrue(TextHeader.startsWith(Title_Expect));
         String TextAccount = loginPage.TextAccount();
         Assert.assertTrue(TextAccount.startsWith(Title_Account));
-        String[] TextTests ={Title_Email,Title_PassWord};
-        List <String> TextUser = loginPage.GetTitle();
-        for(String TextTest:  TextTests){
+        String[] TextTests = {Title_Email, Title_PassWord};
+        List<String> TextUser = loginPage.GetTitle();
+        for (String TextTest : TextTests) {
             Assert.assertTrue(TextUser.contains(TextTest));
         }
 
     }
+
     @Test
-    public void TestInputPassWord(){
+    public void TestInputPassWord() {
         String InputData = "123456";
         Assert.assertTrue((loginPage.TestInputPassWord(InputData)).equals(InputData));
 
@@ -45,16 +47,64 @@ public class LoginPage extends BaseTest {
             Assert.assertTrue(LinkLists.contains(LinkItem));
         }
     }
+
     @Test
     public void RedirectLinkToPage() {
-        String[] LinkItems = {Link_Logo,Link_ForgetPassWord, LinkSignUps};
+        String[] LinkItems = {Link_Logo, Link_ForgetPassWord, LinkSignUps};
         // Click and verify each link
         for (String LinkItem : LinkItems) {
             loginPage.VerifyClickLink(LinkItem);
         }
 
-
     }
 
+    @Test
+    public void InputDataEmailAndPassWord() throws InterruptedException {
+        List<String> credentials = new ArrayList<>();
+        credentials.add("leo.huy@vela.com.vn,Huyvela1!@#1");
+        credentials.add("leo.huy@vela.com.vn,Huyvela1!@#1");
+        credentials.add(",Huyvela1!@#");
+        credentials.add("leo.huy@vela.com.vn,");
+        credentials.add(",");
+        credentials.add("leo.huy@vela.com.vn,Huyvela1!@#");
 
+        for (String credential : credentials) {
+            String[] parts = credential.split(",", -1);
+            String userName = parts.length > 0 ? parts[0] : "";
+            String passWord = parts.length > 1 ? parts[1] : "";
+            loginPage.InputEmailAndPassWord(userName, passWord);
+            try {
+                boolean emailRequired = loginPage.EmailRequired();
+                boolean passwordRequired = loginPage.PassWordRequired();
+                boolean incorrectCredentials = loginPage.IncorrectEmailAndPassWord();
+                if ((emailRequired)) {
+                    Assert.assertEquals((loginPage.EmailRequiredText()), "Please input email!");
+                    System.out.println("Login missing email ");
+                } else if (passwordRequired) {
+                    Assert.assertEquals((loginPage.PassWordRequiredText()), "Please input password!");
+                    System.out.println("Login missing password ");
+
+                } else if (incorrectCredentials) {
+                    Assert.assertEquals((loginPage.IncorrectText()), "Incorrect account or password");
+                    System.out.println("Incorrect account or password");
+                } else if (emailRequired && passwordRequired) {
+                    Assert.assertEquals((loginPage.EmailRequired()), "Please input email!");
+                    Assert.assertEquals((loginPage.PassWordRequired()), "Please input password!");
+                    System.out.println("Missing PassWord And Email");
+                } else if (driver.getCurrentUrl().equals("https://supplier-dev2.vela.com.vn/rfi")) {
+                    System.out.println("Login Successfully");
+                } else {
+                    System.out.println("Unexpected scenario encountered");
+                }
+            } catch (Exception e) {
+                System.out.println("Exception occurred: " + e.getMessage());
+
+
+            }
+
+
+        }
+
+
+    }
 }

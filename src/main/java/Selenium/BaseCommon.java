@@ -13,6 +13,9 @@ import static org.openqa.selenium.By.xpath;
 
 public class BaseCommon {
     public static WebDriver driver;
+    public BaseCommon(WebDriver driver){
+        this.driver =driver;
+    }
 
     public void ClickElement(String xpath){
         this.waitForElementToVisible(xpath);
@@ -22,6 +25,6 @@ public class BaseCommon {
 
     public void waitForElementToVisible(String xpath) {
         FluentWait<WebDriver> wait = new FluentWait<>(driver).withTimeout(Duration.ofSeconds(15)).pollingEvery(Duration.ofSeconds(1));
-        wait.until(ExpectedConditions.presenceOfElementLocated(xpath(xpath)));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
     }
 }
