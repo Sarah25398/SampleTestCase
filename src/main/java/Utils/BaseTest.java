@@ -23,13 +23,9 @@ public class BaseTest {
         driver.manage().window().maximize();
         driver.get(baseUrl);
         loginPage = new LoginPage(driver);
-
-
     }
     @AfterMethod
     public void postCondition(){
         driver.quit();
     }
-
-
 }

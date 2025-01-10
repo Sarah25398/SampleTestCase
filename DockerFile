@@ -1,0 +1,14 @@
+# Use a Gradle image with OpenJDK
+FROM gradle:7.6-jdk17 as build
+
+# Set the working directory
+WORKDIR /home/gradle/project
+
+# Copy the Gradle wrapper and build files
+COPY --chown=gradle:gradle . .
+
+# Build the project using Gradle
+RUN gradle build
+
+# Run the tests
+CMD ["gradle", "test"]
