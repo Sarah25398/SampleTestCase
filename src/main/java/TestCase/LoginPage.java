@@ -61,7 +61,7 @@ public class LoginPage extends BaseTest {
     @Test
     public void InputDataEmailAndPassWord() throws InterruptedException {
         List<String> credentials = new ArrayList<>();
-        credentials.add("leo.huy@vela.com.vn,Huyvela1!@#1");
+        credentials.add("leo.huy@vela.com.vn1,Huyvela1!@#1");
         credentials.add("leo.huy@vela.com.vn,Huyvela1!@#1");
         credentials.add(",Huyvela1!@#");
         credentials.add("leo.huy@vela.com.vn,");
@@ -77,9 +77,11 @@ public class LoginPage extends BaseTest {
                 boolean emailRequired = loginPage.EmailRequired();
                 boolean passwordRequired = loginPage.PassWordRequired();
                 boolean incorrectCredentials = loginPage.IncorrectEmailAndPassWord();
-                if ((emailRequired)) {
+                if (emailRequired && passwordRequired) {
                     Assert.assertEquals((loginPage.EmailRequiredText()), "Please input email!");
-                    System.out.println("Login missing email ");
+                    Assert.assertEquals((loginPage.PassWordRequiredText()), "Please input password!");
+                    System.out.println("Missing PassWord And Email");
+
                 } else if (passwordRequired) {
                     Assert.assertEquals((loginPage.PassWordRequiredText()), "Please input password!");
                     System.out.println("Login missing password ");
@@ -87,10 +89,9 @@ public class LoginPage extends BaseTest {
                 } else if (incorrectCredentials) {
                     Assert.assertEquals((loginPage.IncorrectText()), "Incorrect account or password");
                     System.out.println("Incorrect account or password");
-                } else if (emailRequired && passwordRequired) {
-                    Assert.assertEquals((loginPage.EmailRequired()), "Please input email!");
-                    Assert.assertEquals((loginPage.PassWordRequired()), "Please input password!");
-                    System.out.println("Missing PassWord And Email");
+                } else if (emailRequired) {
+                    Assert.assertEquals((loginPage.EmailRequiredText()), "Please input email!");
+                    System.out.println("Login missing email ");
                 } else if (driver.getCurrentUrl().equals("https://supplier-dev2.vela.com.vn/rfi")) {
                     System.out.println("Login Successfully");
                 } else {
