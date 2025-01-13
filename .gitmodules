@@ -1,0 +1,3 @@
+[submodule "SampleTestCase"]
+	path = SampleTestCase
+	url = https://github.com/Sarah25398/SampleTestCase.git
