@@ -19,7 +19,7 @@ public class GetKeyProperties {
         }
     }
     public static String getEvnProperty(){
-        return properties.getProperty("env", "dev2").toLowerCase();
+        return properties.getProperty("env", "bankPage");
     }
     public static String getBaseUrl(){
 

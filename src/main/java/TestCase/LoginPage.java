@@ -1,6 +1,7 @@
 package TestCase;
 
 import Utils.BaseTest;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -30,6 +31,21 @@ public class LoginPage extends BaseTest {
         }
 
     }
+
+
+
+
+   @Test
+   public void TestCase() {
+       List<String> ActualLinks = bankPageAdmin.TitlePageAttributes();
+       String[] ExpectedLinks = {"https://parabank.parasoft.com/parabank/about.htm", "https://parabank.parasoft.com/parabank/services.htm", "https://parabank.parasoft.com/parabank/admin.htm"};
+       for (String ActualLink : ActualLinks) {
+           if (ActualLinks.equals(ExpectedLinks)) {
+               driver.navigate().to(ActualLink);
+           }
+           System.out.println(ActualLinks);
+       }
+   }
 
     @Test
     public void TestInputPassWord() {
