@@ -1,6 +1,7 @@
 package TestCase;
 
 import Utils.BaseTest;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -8,7 +9,6 @@ import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 public class LoginPage extends BaseTest {
     private static final String Title_Expect = "Sign In";
     private static final String Title_Email = "Email";
@@ -29,12 +29,7 @@ public class LoginPage extends BaseTest {
         for (String TextTest : TextTests) {
             Assert.assertTrue(TextUser.contains(TextTest));
         }
-
     }
-
-
-
-
    @Test
    public void TestCase() {
        List<String> ActualLinks = bankPageAdmin.TitlePageAttributes();
@@ -46,15 +41,11 @@ public class LoginPage extends BaseTest {
            System.out.println(ActualLinks);
        }
    }
-
     @Test
     public void TestInputPassWord() {
         String InputData = "123456";
         Assert.assertTrue((loginPage.TestInputPassWord(InputData)).equals(InputData));
-
     }
-
-
     @Test
     public void ValidLinkRedirect() {
         String[] LinkItems = {Link_Logo, Link_ForgetPassWord, LinkSignUps};
@@ -63,7 +54,6 @@ public class LoginPage extends BaseTest {
             Assert.assertTrue(LinkLists.contains(LinkItem));
         }
     }
-
     @Test
     public void RedirectLinkToPage() {
         String[] LinkItems = {Link_Logo, Link_ForgetPassWord, LinkSignUps};
@@ -71,9 +61,7 @@ public class LoginPage extends BaseTest {
         for (String LinkItem : LinkItems) {
             loginPage.VerifyClickLink(LinkItem);
         }
-
     }
-
     @Test
     public void InputDataEmailAndPassWord() throws InterruptedException {
         List<String> credentials = new ArrayList<>();
@@ -115,13 +103,16 @@ public class LoginPage extends BaseTest {
                 }
             } catch (Exception e) {
                 System.out.println("Exception occurred: " + e.getMessage());
-
-
             }
-
-
         }
-
-
+    }
+    @Test
+    public void GetShadowRoot() throws InterruptedException {
+        WebElement Email = driver.findElement(By.xpath("//input[@id='username']"));
+        Email.sendKeys("423424234");
+        Thread.sleep(2000);
+        WebElement InputFieldUserData = driver.findElement(By.xpath("//input[@id='username']")).getShadowRoot().findElement(By.tagName("div")).findElement(By.tagName("div"));
+        String shadowRootGetText = InputFieldUserData.getText();
+        System.out.println(shadowRootGetText);
     }
 }

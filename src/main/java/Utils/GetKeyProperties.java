@@ -8,7 +8,6 @@ public class GetKeyProperties {
 
 
     private static final Properties properties = new Properties();
-    private static final String environment = getEvnProperty();
     static
     {
         try {
@@ -18,22 +17,22 @@ public class GetKeyProperties {
             throw new RuntimeException(e);
         }
     }
-    public static String getEvnProperty(){
-        return properties.getProperty("env", "bankPage");
+    public static String getProperty(String key){
+        return properties.getProperty(key);
     }
-    public static String getBaseUrl(){
+    public static String getBaseUrl(String keyEvn){
 
-        return properties.getProperty(environment + ".baseUrl");
+        return properties.getProperty(keyEvn);
 
     }
     public static String getUserName(){
-        return properties.getProperty(environment+ ".userName");
+        return properties.getProperty(".userName");
     }
     public static String getPassWord(){
-        return properties.getProperty(environment+ ".passWord");
+        return properties.getProperty( ".passWord");
     }
     public static void main(String args[]){
-        System.out.println(getBaseUrl());
+        System.out.println(getBaseUrl(""));
         System.out.println(getUserName());
         System.out.println(getPassWord());
     }

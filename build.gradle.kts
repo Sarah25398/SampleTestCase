@@ -30,8 +30,8 @@ dependencies {
     implementation("com.github.stephenc.monte:monte-screen-recorder:0.7.7.0")
     // https://mvnrepository.com/artifact/com.github.stephenc.monte/monte-screen-recorder
     implementation("com.github.stephenc.monte:monte-screen-recorder:0.7.7.0")
-
-
+    // https://mvnrepository.com/artifact/io.cucumber/cucumber-java
+    implementation("io.cucumber:cucumber-java:7.20.1")
 
 }
 
