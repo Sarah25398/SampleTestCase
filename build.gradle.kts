@@ -32,6 +32,16 @@ dependencies {
     implementation("com.github.stephenc.monte:monte-screen-recorder:0.7.7.0")
     // https://mvnrepository.com/artifact/io.cucumber/cucumber-java
     implementation("io.cucumber:cucumber-java:7.20.1")
+    // https://mvnrepository.com/artifact/io.cucumber/cucumber-java
+    // https://mvnrepository.com/artifact/io.cucumber/cucumber-testng
+    implementation("io.cucumber:cucumber-testng:7.20.1")
+    // https://mvnrepository.com/artifact/io.cucumber/cucumber-gherkin
+    implementation("io.cucumber:cucumber-gherkin:7.20.1")
+    // https://mvnrepository.com/artifact/io.cucumber/gherkin
+    implementation("io.cucumber:gherkin:30.0.4")
+
+
+
 
 }
 
